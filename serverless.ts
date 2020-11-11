@@ -11,11 +11,13 @@ const serverlessConfiguration: Serverless = {
   custom: {
     webpack: {
       webpackConfig: './webpack.config.js',
-      includeModules: true
+      includeModules: {
+        forceInclude: ['pg']
+      }
     }
   },
   // Add the serverless-webpack plugin
-  plugins: ['serverless-webpack', 'serverless-dotenv-plugin'],
+  plugins: ['serverless-webpack', 'serverless-dotenv-plugin', 'serverless-offline'],
   provider: {
     name: 'aws',
     runtime: 'nodejs12.x',
@@ -58,7 +60,19 @@ const serverlessConfiguration: Serverless = {
           }
         }
       ]
-    }
+    },
+    createProduct: {
+      handler: 'src/handler.createProduct',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'products',
+            cors: true,
+          }
+        }
+      ]
+    },
   }
 }
 

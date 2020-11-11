@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "lib": ["esnext"],
+    "lib": ["es6"],
     "removeComments": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "types": ["aws-lambda", "node", "serverless","reflect-metadata"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
-    "target": "esnext",
+    "target": "es5",
     "outDir": "lib"
   },
   "include": ["./**/*.ts"],

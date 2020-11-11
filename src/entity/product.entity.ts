@@ -22,4 +22,12 @@ export class ProductEntity {
 
 	@UpdateDateColumn()
 	updatedAt: Date;
+
+
+	constructor(name: string, description: string, price: number, count: number) {
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.count = count;
+	}
 }

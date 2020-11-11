@@ -1,10 +1,11 @@
-import { defaults } from 'pg';
-import { ProductEntity } from '../entity/product.entity';
+import { injectable } from 'inversify';
 import { Connection, ConnectionOptions, createConnection } from 'typeorm';
+import { ProductEntity } from '../entity/product.entity';
 
+@injectable()
 export class DatabaseService {
-	private static connection: Connection;
-	private static connectionOptions: ConnectionOptions = {
+	private connection: Connection;
+	private readonly connectionOptions: ConnectionOptions = {
 		type: 'postgres',
 		host: process.env.DATABASE_HOST,
 		port: +process.env.DATABASE_PORT,
@@ -25,10 +26,7 @@ export class DatabaseService {
 	};
 
 	constructor() {
-		console.log(defaults);
-	}
-
-	public static async getConnection(): Promise<Connection> {
-		return this.connection || (this.connection = await createConnection(this.connectionOptions));
+		createConnection(this.connectionOptions).then(connection => this.connection = connection);
+		console.log('Init database service');
 	}
 }
